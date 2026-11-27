@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | Blogger</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="auth-page">
+
+    <header class="auth-navbar">
+        <a href="index.html" class="brand">
+            <span class="brand-symbol">B</span>
+            Blogger
+        </a>
+        <a href="index.html" class="text-link">Back to home</a>
+    </header>
+
+    <main class="auth-container">
+
+        <section class="auth-art">
+            <span class="eyebrow">START SOMETHING NEW</span>
+            <h1>Every great story starts somewhere.</h1>
+            <p>Create your account and give your ideas a home.</p>
+
+            <div class="auth-illustration">
+                <div class="auth-paper">
+                    <div class="auth-paper-heading"></div>
+                    <div class="auth-paper-line"></div>
+                    <div class="auth-paper-line"></div>
+                    <div class="auth-paper-line short"></div>
+                    <div class="auth-paper-heart">✿</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="auth-form-area">
+            <div class="auth-form">
+                <h2>Create account</h2>
+                <p>Join our community of storytellers.</p>
+
+                <form id="registerForm">
+                    <label for="registerName">Full name</label>
+                    <input type="text" id="registerName"
+                           placeholder="Your name" required>
+
+                    <label for="registerEmail">Email address</label>
+                    <input type="email" id="registerEmail"
+                           placeholder="you@example.com" required>
+
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword"
+                           placeholder="At least 8 characters"
+                           minlength="8" required>
+
+                    <label for="confirmPassword">Confirm password</label>
+                    <input type="password" id="confirmPassword"
+                           placeholder="Repeat your password" required>
+
+                    <button type="submit" class="auth-submit">
+                        Create account
+                    </button>
+
+                    <p id="registerMessage" class="form-message"></p>
+                </form>
+
+                <p class="auth-switch">
+                    Already have an account?
+                    <a href="login.html">Sign in</a>
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

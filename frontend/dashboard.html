@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Blogger</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dashboard-page">
+
+    <aside class="sidebar">
+        <a href="index.html" class="brand">
+            <span class="brand-symbol">B</span>
+            Blogger
+        </a>
+
+        <p class="sidebar-label">WORKSPACE</p>
+
+        <a href="dashboard.html" class="side-link active">▦ Overview</a>
+        <a href="#posts" class="side-link">▤ My Posts</a>
+        <a href="create-blog.html" class="side-link">＋ Create Post</a>
+
+        <p class="sidebar-label">ACCOUNT</p>
+
+        <a href="index.html" class="side-link">⌂ Visit Website</a>
+        <button id="logoutButton" class="side-link logout-button">
+            ↪ Log out
+        </button>
+    </aside>
+
+    <main class="dashboard-main">
+
+        <header class="dashboard-header">
+            <div>
+                <span class="eyebrow">YOUR WORKSPACE</span>
+                <h1>Dashboard</h1>
+                <p>Manage your stories and track your progress.</p>
+            </div>
+
+            <a href="create-blog.html" class="create-btn">
+                + NEW POST
+            </a>
+        </header>
+
+        <section class="welcome-card">
+            <div>
+                <span>WELCOME BACK!</span>
+                <h2>Hello, <span id="dashboardName">Writer</span> 👋</h2>
+                <p>Ready to share another great story?</p>
+            </div>
+            <div class="welcome-decoration">✍️</div>
+        </section>
+
+        <section class="stats-grid">
+
+            <article class="stat-card">
+                <span>Total Posts</span>
+                <h2 id="totalPosts">0</h2>
+                <small>All your articles</small>
+            </article>
+
+            <article class="stat-card">
+                <span>Published</span>
+                <h2 id="publishedPosts">0</h2>
+                <small>Live articles</small>
+            </article>
+
+            <article class="stat-card">
+                <span>Drafts</span>
+                <h2 id="draftPosts">0</h2>
+                <small>Work in progress</small>
+            </article>
+
+        </section>
+
+        <section class="posts-section" id="posts">
+            <div class="posts-heading">
+                <div>
+                    <h2>Your Posts</h2>
+                    <p>Manage your published content and drafts.</p>
+                </div>
+                <a href="create-blog.html" class="text-link">
+                    + Write a post
+                </a>
+            </div>
+
+            <div id="postsList" class="posts-list">
+                <div class="empty-state">
+                    <span>✍️</span>
+                    <h3>No posts yet</h3>
+                    <p>Your stories will appear here.</p>
+                    <a href="create-blog.html" class="create-btn">
+                        CREATE YOUR FIRST POST
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

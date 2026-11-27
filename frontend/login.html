@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In | Blogger</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="auth-page">
+
+    <header class="auth-navbar">
+        <a href="index.html" class="brand">
+            <span class="brand-symbol">B</span>
+            Blogger
+        </a>
+        <a href="index.html" class="text-link">Back to home</a>
+    </header>
+
+    <main class="auth-container">
+
+        <section class="auth-art">
+            <span class="eyebrow">WELCOME BACK</span>
+            <h1>Your stories are waiting for you.</h1>
+            <p>Continue sharing your ideas with the world.</p>
+            <div class="auth-illustration">
+                <div class="auth-paper">
+                    <div class="auth-paper-heading"></div>
+                    <div class="auth-paper-line"></div>
+                    <div class="auth-paper-line"></div>
+                    <div class="auth-paper-line short"></div>
+                    <div class="auth-paper-heart">✦</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="auth-form-area">
+            <div class="auth-form">
+                <h2>Sign in</h2>
+                <p>Welcome back! Enter your details below.</p>
+
+                <form id="loginForm">
+                    <label for="loginEmail">Email address</label>
+                    <input type="email" id="loginEmail"
+                           placeholder="you@example.com" required>
+
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword"
+                           placeholder="Enter your password" required>
+
+                    <button type="submit" class="auth-submit">
+                        Sign in
+                    </button>
+
+                    <p id="loginMessage" class="form-message"></p>
+                </form>
+
+                <p class="auth-switch">
+                    Don't have an account?
+                    <a href="register.html">Create account</a>
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
