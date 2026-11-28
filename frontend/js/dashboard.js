@@ -8,7 +8,7 @@
 (() => {
     "use strict";
 
-    const API_BASE_URL = "http://localhost:5000/api";
+    const API_BASE_URL = "https://blogging-backend-lb19.onrender.com/api";
     const token = localStorage.getItem("bloggerToken");
     const currentUser = JSON.parse(localStorage.getItem("bloggerCurrentUser") || "null");
 

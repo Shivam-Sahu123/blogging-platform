@@ -2,7 +2,7 @@
    BLOGGER - MAIN APPLICATION
 ================================= */
 
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "https://blogging-backend-lb19.onrender.com/api";
 
 const getToken = () => localStorage.getItem("bloggerToken");
 const getCurrentUser = () =>
