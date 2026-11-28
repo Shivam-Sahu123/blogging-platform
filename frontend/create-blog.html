@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,68 +5,128 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Post | Blogger</title>
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .editor-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px;
+            padding: 10px;
+            margin: 18px 0 0;
+            border: 1px solid #e4e8ef;
+            border-radius: 12px 12px 0 0;
+            background: #fff;
+        }
+        .editor-toolbar button, .editor-toolbar select {
+            min-width: 36px;
+            height: 36px;
+            padding: 0 10px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            background: #fff;
+            color: #344054;
+            cursor: pointer;
+            font: inherit;
+        }
+        .editor-toolbar button:hover, .editor-toolbar select:hover {
+            background: #f3f6fa;
+            border-color: #cbd5e1;
+        }
+        .editor-toolbar .tool-divider {
+            width: 1px;
+            height: 24px;
+            margin: 0 3px;
+            background: #e5e7eb;
+        }
+        .content-editor {
+            min-height: 420px;
+            padding: 22px;
+            border: 1px solid #e4e8ef;
+            border-top: 0;
+            border-radius: 0 0 12px 12px;
+            outline: none;
+            background: #fff;
+            line-height: 1.8;
+        }
+        .content-editor:focus {
+            border-color: #a9b8ca;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, .08);
+        }
+        .content-editor:empty::before {
+            content: attr(data-placeholder);
+            color: #98a2b3;
+            pointer-events: none;
+        }
+        .editor-message {
+            min-height: 22px;
+            margin-top: 10px;
+            color: #667085;
+            font-size: .9rem;
+        }
+        .editor-toolbar button:focus-visible, .editor-toolbar select:focus-visible {
+            outline: 2px solid #64748b;
+            outline-offset: 2px;
+        }
+        @media (max-width: 700px) {
+            .editor-toolbar { gap: 5px; padding: 8px; }
+            .editor-toolbar button, .editor-toolbar select { height: 34px; min-width: 32px; padding: 0 8px; }
+            .content-editor { min-height: 320px; padding: 16px; }
+        }
+    </style>
 </head>
 <body class="editor-page">
-
     <header class="editor-navbar">
         <a href="dashboard.html" class="brand">
             <span class="brand-symbol">B</span>
             Blogger
         </a>
-
-        <span class="editor-status" id="editorStatus">
-            New article
-        </span>
-
+        <span class="editor-status" id="editorStatus">New article</span>
         <div class="editor-actions">
-            <button type="button" class="preview-btn" id="previewButton">
-                Preview
-            </button>
-            <button type="button" class="draft-btn" id="draftButton">
-                Save draft
-            </button>
-            <button type="button" class="publish-btn" id="publishButton">
-                Publish
-            </button>
+            <button type="button" class="preview-btn" id="previewButton">Preview</button>
+            <button type="button" class="draft-btn" id="draftButton">Save draft</button>
+            <button type="button" class="publish-btn" id="publishButton">Publish</button>
         </div>
     </header>
 
     <main class="editor-container">
-
         <div class="editor-main">
-
             <span class="eyebrow">CREATE SOMETHING NEW</span>
+            <input type="text" id="postTitle" class="title-input"
+                   placeholder="Give your story a title..." maxlength="150">
 
-            <input
-                type="text"
-                id="postTitle"
-                class="title-input"
-                placeholder="Give your story a title..."
-                maxlength="150"
-            >
-
-            <div class="editor-toolbar">
-                <button type="button" data-command="bold"><b>B</b></button>
-                <button type="button" data-command="italic"><i>I</i></button>
-                <button type="button" data-command="underline"><u>U</u></button>
-                <button type="button" data-command="formatBlock" data-value="h2">H2</button>
-                <button type="button" data-command="insertUnorderedList">☷</button>
-                <button type="button" data-command="formatBlock" data-value="blockquote">❝</button>
+            <div class="editor-toolbar" role="toolbar" aria-label="Text formatting">
+                <select id="blockFormat" aria-label="Text style" title="Text style">
+                    <option value="P">Paragraph</option>
+                    <option value="H2">Heading 2</option>
+                    <option value="H3">Heading 3</option>
+                    <option value="BLOCKQUOTE">Quote</option>
+                </select>
+                <span class="tool-divider"></span>
+                <button type="button" data-command="bold" title="Bold"><b>B</b></button>
+                <button type="button" data-command="italic" title="Italic"><i>I</i></button>
+                <button type="button" data-command="underline" title="Underline"><u>U</u></button>
+                <button type="button" data-command="strikeThrough" title="Strikethrough"><s>S</s></button>
+                <span class="tool-divider"></span>
+                <button type="button" data-command="insertUnorderedList" title="Bulleted list">• List</button>
+                <button type="button" data-command="insertOrderedList" title="Numbered list">1. List</button>
+                <button type="button" data-command="justifyLeft" title="Align left">⇤</button>
+                <button type="button" data-command="justifyCenter" title="Align center">↔</button>
+                <button type="button" data-command="justifyRight" title="Align right">⇥</button>
+                <span class="tool-divider"></span>
+                <button type="button" id="insertLinkButton" title="Insert link">Link</button>
+                <button type="button" data-command="undo" title="Undo">↶</button>
+                <button type="button" data-command="redo" title="Redo">↷</button>
+                <button type="button" data-command="removeFormat" title="Clear formatting">Tx</button>
             </div>
 
-            <div
-                id="postContent"
-                class="content-editor"
-                contenteditable="true"
-                data-placeholder="Start writing your story here..."
-            ></div>
-
+            <div id="postContent" class="content-editor" contenteditable="true"
+                 role="textbox" aria-label="Blog content" aria-multiline="true"
+                 data-placeholder="Start writing your story here..."></div>
+            <p id="editorMessage" class="editor-message" aria-live="polite"></p>
         </div>
 
         <aside class="editor-settings">
-
             <h3>Post Settings</h3>
-
             <label for="postCategory">Category</label>
             <select id="postCategory">
                 <option value="Technology">Technology</option>
@@ -77,28 +136,17 @@
                 <option value="Personal">Personal</option>
                 <option value="Other">Other</option>
             </select>
-
             <div class="settings-note">
                 <span>💡</span>
-                <p>
-                    A good title and organized content
-                    help readers understand your story.
-                </p>
+                <p>A good title and organized content help readers understand your story.</p>
             </div>
-
-            <a href="dashboard.html" class="back-dashboard">
-                ← Back to dashboard
-            </a>
-
+            <a href="dashboard.html" class="back-dashboard">← Back to dashboard</a>
         </aside>
-
     </main>
 
     <div class="preview-overlay" id="previewOverlay" hidden>
         <div class="preview-window">
-            <button type="button" id="closePreview" class="close-preview">
-                ✕
-            </button>
+            <button type="button" id="closePreview" class="close-preview">✕</button>
             <span class="eyebrow">ARTICLE PREVIEW</span>
             <h1 id="previewTitle"></h1>
             <p class="preview-category" id="previewCategory"></p>
