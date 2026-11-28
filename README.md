@@ -150,14 +150,6 @@ An independent learning project inspired by Google's Blogger. Not affiliated wit
 Frontend prototype completed.
 Backend development planned.
 
-## Run Locally
-
-Navigate to the frontend directory:
-
-```bash
-cd frontend
-python3 -m http.server 5500
-
 ## Disclaimer
 An independent learning project inspired by Google's Blogger.
 Not affiliated with Google.
