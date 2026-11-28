@@ -2,7 +2,8 @@
 /* =================================
    BLOGGER - MAIN APPLICATION
 ================================= */
-
+// Backend API URL
+const API_BASE_URL = "http://localhost:5000/api";
 // Storage helpers
 const getUsers = () =>
     JSON.parse(localStorage.getItem("bloggerUsers") || "[]");
@@ -61,10 +62,14 @@ function sanitizeHTML(html) {
    REGISTRATION
 ================================= */
 
+/* =================================
+   REGISTRATION - BACKEND API
+================================= */
+
 const registerForm = document.getElementById("registerForm");
 
 if (registerForm) {
-    registerForm.addEventListener("submit", event => {
+    registerForm.addEventListener("submit", async (event) => {
         event.preventDefault();
 
         const name = document.getElementById("registerName").value.trim();
@@ -72,6 +77,7 @@ if (registerForm) {
         const password = document.getElementById("registerPassword").value;
         const confirmPassword = document.getElementById("confirmPassword").value;
         const message = document.getElementById("registerMessage");
+        const submitButton = registerForm.querySelector("button[type='submit']");
 
         if (password.length < 8) {
             message.textContent = "Password must contain at least 8 characters.";
@@ -83,28 +89,46 @@ if (registerForm) {
             return;
         }
 
-        const users = getUsers();
+        try {
+            submitButton.disabled = true;
+            submitButton.textContent = "Creating account...";
+            message.textContent = "";
 
-        if (users.some(user => user.email === email)) {
-            message.textContent = "An account with this email already exists.";
-            return;
-        }
+            const response = await fetch(`${API_BASE_URL}/auth/register`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name,
+                    email,
+                    password
+                })
+            });
 
-        // Demo only: never store passwords in localStorage.
-        users.push({ name, email });
+            const data = await response.json();
 
-        localStorage.setItem("bloggerUsers", JSON.stringify(users));
+            if (!response.ok) {
+                throw new Error(data.message || "Registration failed.");
+            }
 
-        localStorage.setItem(
-            "bloggerCurrentUser",
-            JSON.stringify({ name, email })
-        );
+            // Store authentication data
+            localStorage.setItem("bloggerToken", data.token);
+            localStorage.setItem(
+                "bloggerCurrentUser",
+                JSON.stringify(data.user)
+            );
 
-        message.textContent = "Account created! Redirecting...";
+            message.textContent = "Account created successfully!";
 
-        setTimeout(() => {
             window.location.href = "dashboard.html";
-        }, 700);
+
+        } catch (error) {
+            message.textContent = error.message;
+        } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = "Create account";
+        }
     });
 }
 
@@ -112,38 +136,62 @@ if (registerForm) {
    LOGIN
 ================================= */
 
+/* =================================
+   LOGIN - BACKEND API
+================================= */
+
 const loginForm = document.getElementById("loginForm");
 
 if (loginForm) {
-    loginForm.addEventListener("submit", event => {
+    loginForm.addEventListener("submit", async (event) => {
         event.preventDefault();
 
         const email = document.getElementById("loginEmail").value.trim().toLowerCase();
         const password = document.getElementById("loginPassword").value;
         const message = document.getElementById("loginMessage");
+        const submitButton = loginForm.querySelector("button[type='submit']");
 
-        const users = getUsers();
+        try {
+            submitButton.disabled = true;
+            submitButton.textContent = "Signing in...";
+            message.textContent = "";
 
-        const user = users.find(item => item.email === email);
+            const response = await fetch(`${API_BASE_URL}/auth/login`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email,
+                    password
+                })
+            });
 
-        if (!user || !password) {
-            message.textContent = "Account not found. Please register first.";
-            return;
-        }
+            const data = await response.json();
 
-        localStorage.setItem(
-            "bloggerCurrentUser",
-            JSON.stringify(user)
-        );
+            if (!response.ok) {
+                throw new Error(data.message || "Login failed.");
+            }
 
-        message.textContent = "Login successful! Redirecting...";
+            // Store authentication data
+            localStorage.setItem("bloggerToken", data.token);
+            localStorage.setItem(
+                "bloggerCurrentUser",
+                JSON.stringify(data.user)
+            );
 
-        setTimeout(() => {
+            message.textContent = "Login successful!";
+
             window.location.href = "dashboard.html";
-        }, 500);
+
+        } catch (error) {
+            message.textContent = error.message;
+        } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = "Sign in";
+        }
     });
 }
-
 /* =================================
    AUTHENTICATION GUARD
 ================================= */
@@ -254,7 +302,9 @@ const logoutButton = document.getElementById("logoutButton");
 
 if (logoutButton) {
     logoutButton.addEventListener("click", () => {
+        localStorage.removeItem("bloggerToken");
         localStorage.removeItem("bloggerCurrentUser");
+
         window.location.href = "index.html";
     });
 }
